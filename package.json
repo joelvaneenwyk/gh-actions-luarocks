@@ -1,10 +1,11 @@
 {
-  "name": "install-lua",
+  "name": "gh-actions-luarocks",
   "version": "1.0.0",
   "description": "Build and install Lua",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "esbuild main.js --bundle --analyze=verbose --minify --tree-shaking=true --platform=node --packages=external --outdir=dist/",
+    "test": "eslint main.js"
   },
   "author": "leaf corcoran <leafot@gmail.com>",
   "license": "MIT",
@@ -13,5 +14,9 @@
     "@actions/exec": "^1.1.1",
     "@actions/io": "^1.1.3",
     "@actions/tool-cache": "^2.0.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.21.1",
+    "eslint": "^9.2.0"
   }
 }
