@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "build": "esbuild main.js --bundle --analyze=verbose --target=es2020,node12 --platform=node --minify --outdir=dist/",
-    "test": "eslint main.js"
+    "test": "eslint --no-config-lookup --debug main.js",
+    "format": "eslint --fix --no-config-lookup --debug main.js"
   },
   "author": "leaf corcoran <leafot@gmail.com>",
   "license": "MIT",
