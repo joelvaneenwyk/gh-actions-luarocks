@@ -4,7 +4,7 @@
   "description": "Build and install Lua",
   "main": "main.js",
   "scripts": {
-    "build": "esbuild main.js --bundle --analyze=verbose --minify --tree-shaking=true --platform=node --packages=external --outdir=dist/",
+    "build": "esbuild main.js --bundle --analyze=verbose --target=es2020,node12 --platform=node --minify --outdir=dist/",
     "test": "eslint main.js"
   },
   "author": "leaf corcoran <leafot@gmail.com>",
