@@ -1,6 +1,6 @@
-act = "0.2.62"
-actionlint = "1.6.27"
+act = "0.2.67"
+actionlint = "1.7.1"
 
 [plugins]
-act = "source:https://raw.githubusercontent.com/theomessin/proto-toml-plugins/master/act.toml"
-actionlint = "source:https://raw.githubusercontent.com/Phault/proto-toml-plugins/main/actionlint/plugin.toml"
+act = "https://raw.githubusercontent.com/theomessin/proto-toml-plugins/master/act.toml"
+actionlint = "https://raw.githubusercontent.com/Phault/proto-toml-plugins/main/actionlint/plugin.toml"
