@@ -11,20 +11,46 @@ const tc = require("@actions/tool-cache");
 
 const path = require("path");
 
+const notice = (msg) => core.notice(`gh-actions-luarocks: ${msg}`);
+const warning = (msg) => core.warning(`gh-actions-luarocks: ${msg}`);
+
 const BUILD_PREFIX = ".build-luarocks";
 
 const LUA_PREFIX = ".lua"; // default location for existing Lua installation
 const LUAROCKS_PREFIX = ".luarocks"; // default location for LuaRocks installation
 
-async function main() {
-  const luaRocksVersion = core.getInput('luaRocksVersion', { required: true });
+// Returns posix path for process.cwd()
+const processCwd = () => {
+  return process.cwd().split(path.sep).join(path.posix.sep);
+};
 
-  const luaRocksExtractPath = path.join(process.env["RUNNER_TEMP"], BUILD_PREFIX, `luarocks-${luaRocksVersion}`);
-  const luaRocksInstallPath = path.join(process.cwd(), LUAROCKS_PREFIX);
+async function main() {
+  let runnerTemp = null;
+  if ("RUNNER_TEMP" in process.env) {
+    runnerTemp = process.env["RUNNER_TEMP"];
+  } else {
+    runnerTemp = processCwd();
+  }
+  process.env["RUNNER_TEMP"] = runnerTemp;
+
+  if (!("RUNNER_TOOL_CACHE" in process.env)) {
+    process.env["RUNNER_TOOL_CACHE"] = runnerTemp;
+  }
+
+  let luaRocksVersion = null;
+  try {
+    luaRocksVersion = core.getInput('luaRocksVersion', { required: true });
+  } catch (e) {
+    notice("Failed to get input 'luaRocksVersion'");
+  }
+  luaRocksVersion = luaRocksVersion || "3.7.0";
+
+  const luaRocksExtractPath = path.join(runnerTemp, BUILD_PREFIX, `luarocks-${luaRocksVersion}`);
+  const luaRocksInstallPath = path.join(runnerTemp, LUAROCKS_PREFIX);
 
   const sourceTar = await tc.downloadTool(`https://luarocks.org/releases/luarocks-${luaRocksVersion}.tar.gz`);
   await io.mkdirP(luaRocksExtractPath);
-  await tc.extractTar(sourceTar, path.join(process.env["RUNNER_TEMP"], BUILD_PREFIX));
+  await tc.extractTar(sourceTar, path.join(runnerTemp, BUILD_PREFIX));
 
   const configureArgs = [];
   if (core.getInput("withLuaPath")) {
@@ -107,4 +133,3 @@ async function main() {
 main().catch(err => {
   core.setFailed(`Failed to install LuaRocks: ${err}`);
 })
-

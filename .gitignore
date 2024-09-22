@@ -1,3 +1,8 @@
 node_modules/
 .yarn/
 yarn.lock
+
+.build-luarocks/
+
+# Intermediate identifier that could get generated in error e.g., 2adfe1d6-353e-42f3-9708-d096b48d2c68
+/*-*-*-*
