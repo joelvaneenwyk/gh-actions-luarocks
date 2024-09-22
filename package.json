@@ -8,6 +8,7 @@
     "test": "eslint --no-config-lookup --debug main.js",
     "format": "eslint --fix --no-config-lookup --debug main.js"
   },
+  "packageManager": "npm@10.8.3+sha512.d08425c8062f56d43bb8e84315864218af2492eb769e1f1ca40740f44e85bd148969382d651660363942e5909cb7ffcbef7ca0ae963ddc2c57a51243b4da8f56",
   "author": "leaf corcoran <leafot@gmail.com>",
   "license": "MIT",
   "dependencies": {
@@ -17,7 +18,7 @@
     "@actions/tool-cache": "^2.0.1"
   },
   "devDependencies": {
-    "esbuild": "0.21.1",
-    "eslint": "^9.2.0"
+    "esbuild": "0.24.0",
+    "eslint": "^9.11.0"
   }
 }
